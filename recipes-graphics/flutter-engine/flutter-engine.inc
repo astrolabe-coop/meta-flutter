@@ -131,7 +131,7 @@ do_configure[depends] += "depot-tools-native:do_populate_sysroot"
 do_compile() {
     cd ${S}
 
-    autoninja -C ${OUT_DIR_REL}
+    autoninja -k0 -C ${OUT_DIR_REL}
 }
 do_compile[depends] += "depot-tools-native:do_populate_sysroot"
 do_compile[progress] = "outof:^\[(\d+)/(\d+)\]\s+"
