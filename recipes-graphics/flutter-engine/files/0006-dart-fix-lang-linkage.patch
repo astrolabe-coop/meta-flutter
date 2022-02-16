@@ -1,0 +1,22 @@
+diff --git a/runtime/vm/malloc_hooks_unsupported.cc a/runtime/vm/malloc_hooks_unsupported.cc
+index dd25e813dff..8b3999abcc0 100644
+--- a/runtime/vm/malloc_hooks_unsupported.cc
++++ b/runtime/vm/malloc_hooks_unsupported.cc
+@@ -29,2 +29,17 @@
+ namespace dart {
++#if defined(DART_USE_MALLINFO2)
++extern "C" struct mallinfo2
++{
++  size_t arena;    /* non-mmapped space allocated from system */
++  size_t ordblks;  /* number of free chunks */
++  size_t smblks;   /* number of fastbin blocks */
++  size_t hblks;    /* number of mmapped regions */
++  size_t hblkhd;   /* space in mmapped regions */
++  size_t usmblks;  /* always 0, preserved for backwards compatibility */
++  size_t fsmblks;  /* space available in freed fastbin blocks */
++  size_t uordblks; /* total allocated space */
++  size_t fordblks; /* total free space */
++  size_t keepcost; /* top-most, releasable (via malloc_trim) space */
++};
++#endif
+ 
