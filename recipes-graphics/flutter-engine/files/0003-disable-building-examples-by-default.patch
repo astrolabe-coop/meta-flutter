@@ -1,0 +1,13 @@
+diff --git a/flutter/examples/examples.gni b/flutter/examples/examples.gni
+index 6779ee16b905..4c267169d37e 100644
+--- a/flutter/examples/examples.gni
++++ b/flutter/examples/examples.gni
+@@ -4,6 +4,6 @@
+ 
+ declare_args() {
+   # The example embedders may use dependencies not suitable on all platforms.
+-  # Use this GN arg to disable building the examples.
+-  build_embedder_examples = is_mac || is_linux
++  # Use this GN arg to enable building the examples.
++  build_embedder_examples = false
+ }
