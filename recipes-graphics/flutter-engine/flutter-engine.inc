@@ -22,7 +22,11 @@ DEPENDS += "\
 
 SRC_URI = "file://0001-clang-toolchain.patch \
            file://0002-x64-sysroot-assert.patch"
-
+           
+SRC_URI += "file://0003-disable-building-examples-by-default.patch \
+            file://0005-dart-enable-mallinfo2.patch \
+            file://0006-dart-fix-lang-linkage.patch \
+"
 S = "${WORKDIR}/src"
 
 inherit python3native features_check pkgconfig
@@ -33,7 +37,7 @@ RUNTIME = "llvm"
 TOOLCHAIN = "clang"
 PREFERRED_PROVIDER:libgcc = "compiler-rt"
 
-COMPATIBLE_MACHINE = "(-)"
+COMPATIBLE_MACHINE = "(qemux86-64)"
 COMPATIBLE_MACHINE:aarch64 = "(.*)"
 COMPATIBLE_MACHINE:armv7 = "(.*)"
 COMPATIBLE_MACHINE:armv7a = "(.*)"
@@ -174,6 +178,12 @@ do_patch () {
 
     git apply ${WORKDIR}/0001-clang-toolchain.patch
     git apply ${WORKDIR}/0002-x64-sysroot-assert.patch
+    git apply ${WORKDIR}/0003-disable-building-examples-by-default.patch    
+    
+    cd third_party/dart
+    git apply ${WORKDIR}/0005-dart-enable-mallinfo2.patch
+    git apply ${WORKDIR}/0006-dart-fix-lang-linkage.patch
+    cd ../..
 
     # required object files to link
     CLANG_VERSION=`ls ${CLANG_PATH}/lib/clang`
