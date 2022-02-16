@@ -1,0 +1,17 @@
+diff --git a/third_party/llvm-subzero/lib/Support/Unix/Process.inc b/third_party/llvm-subzero/lib/Support/Unix/Process.inc
+index b23904664..448d8f7d0 100644
+--- a/third_party/llvm-subzero/lib/Support/Unix/Process.inc
++++ b/third_party/llvm-subzero/lib/Support/Unix/Process.inc
+@@ -87,8 +87,8 @@ unsigned Process::getPageSize() {
+
+ size_t Process::GetMallocUsage() {
+ #if defined(HAVE_MALLINFO)
+-  struct mallinfo mi;
+-  mi = ::mallinfo();
++  struct mallinfo2 mi;
++  mi = ::mallinfo2();
+   return mi.uordblks;
+ #elif defined(HAVE_MALLOC_ZONE_STATISTICS) && defined(HAVE_MALLOC_MALLOC_H)
+   malloc_statistics_t Stats;
+-- 
+2.31.1
