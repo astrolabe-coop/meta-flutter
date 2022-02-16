@@ -20,7 +20,11 @@ DEPENDS += "\
 SRC_URI = "gn://github.com/flutter/engine.git;name=src/flutter \
            file://0001-clang-toolchain.patch \
            file://0002-x64-sysroot-assert.patch"
-
+           
+SRC_URI += "file://0003-disable-building-examples-by-default.patch \
+            file://0005-dart-enable-mallinfo2.patch \
+            file://0006-dart-fix-lang-linkage.patch \
+"
 S = "${WORKDIR}/src"
 
 inherit gn-for-flutter python3native features_check pkgconfig
@@ -43,12 +47,12 @@ TOOLCHAIN = "clang"
 PREFERRED_PROVIDER:libgcc = "compiler-rt"
 
 COMPATIBLE_MACHINE = "(qemux86-64)"
-COMPATIBLE_MACHINE_aarch64 = "(.*)"
-COMPATIBLE_MACHINE_armv7 = "(.*)"
-COMPATIBLE_MACHINE_armv7a = "(.*)"
-COMPATIBLE_MACHINE_armv7ve = "(.*)"
-COMPATIBLE_MACHINE_x86 = "(.*)"
-COMPATIBLE_MACHINE_x86-64 = "(.*)"
+COMPATIBLE_MACHINE:aarch64 = "(.*)"
+COMPATIBLE_MACHINE:armv7 = "(.*)"
+COMPATIBLE_MACHINE:armv7a = "(.*)"
+COMPATIBLE_MACHINE:armv7ve = "(.*)"
+COMPATIBLE_MACHINE:x86 = "(.*)"
+COMPATIBLE_MACHINE:x86-64 = "(.*)"
 
 FLUTTER_RUNTIME ??= "release"
 
