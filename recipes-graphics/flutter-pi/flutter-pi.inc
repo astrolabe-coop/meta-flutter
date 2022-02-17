@@ -20,7 +20,7 @@ DEPENDS += "\
     virtual/egl \
    "
 
-RDEPENDS_${PN} += "\
+RDEPENDS:${PN} += "\
     xkeyboard-config \
     fontconfig \
     "
@@ -53,7 +53,7 @@ PACKAGECONFIG[asan]         = "-DENABLE_ASAN=ON,                         -DENABL
 PACKAGECONFIG[ubsan]        = "-DENABLE_UBSAN=ON,                        -DENABLE_UBSAN=OFF"
 PACKAGECONFIG[mtrace]       = "-DENABLE_MTRACE=ON,                       -DENABLE_MTRACE=OFF"
 
-FILES_${PN} = "\
+FILES:${PN} = "\
     ${bindir} \
     "
 

@@ -40,15 +40,15 @@ EXTRA_GN_SYNC ?= "--shallow --no-history -R -D"
 # For do_configure, do_compile
 RUNTIME = "llvm"
 TOOLCHAIN = "clang"
-PREFERRED_PROVIDER_libgcc = "compiler-rt"
+PREFERRED_PROVIDER:libgcc = "compiler-rt"
 
 COMPATIBLE_MACHINE = "(-)"
-COMPATIBLE_MACHINE_aarch64 = "(.*)"
-COMPATIBLE_MACHINE_armv7 = "(.*)"
-COMPATIBLE_MACHINE_armv7a = "(.*)"
-COMPATIBLE_MACHINE_armv7ve = "(.*)"
-COMPATIBLE_MACHINE_x86 = "(.*)"
-COMPATIBLE_MACHINE_x86-64 = "(.*)"
+COMPATIBLE_MACHINE:aarch64 = "(.*)"
+COMPATIBLE_MACHINE:armv7 = "(.*)"
+COMPATIBLE_MACHINE:armv7a = "(.*)"
+COMPATIBLE_MACHINE:armv7ve = "(.*)"
+COMPATIBLE_MACHINE:x86 = "(.*)"
+COMPATIBLE_MACHINE:x86-64 = "(.*)"
 
 FLUTTER_RUNTIME ??= "release"
 
@@ -95,22 +95,22 @@ ARGS_GN_FILE = "${WORKDIR}/src/${OUT_DIR_REL}/args.gn"
 
 OUT_DIR_REL = "${@get_out_dir(d)}"
 
-GN_ARGS = "${PACKAGECONFIG_CONFARGS} --clang --lto --no-goma --no-stripped "
-GN_ARGS_append = " --target-os linux"
-GN_ARGS_append = " --linux-cpu ${@gn_target_arch_name(d)}"
-GN_ARGS_append = " --target-sysroot ${STAGING_DIR_TARGET}"
-GN_ARGS_append = " --target-toolchain ${CLANG_PATH}"
-GN_ARGS_append = " --target-triple ${CLANG_TOOLCHAIN_TRIPLE}"
+GN_ARGS = "${PACKAGECONFIG_CONFARGS} --clang --lto --no-goma "
+GN_ARGS:append = " --target-os linux"
+GN_ARGS:append = " --linux-cpu ${@gn_target_arch_name(d)}"
+GN_ARGS:append = " --target-sysroot ${STAGING_DIR_TARGET}"
+GN_ARGS:append = " --target-toolchain ${CLANG_PATH}"
+GN_ARGS:append = " --target-triple ${CLANG_TOOLCHAIN_TRIPLE}"
 
-GN_ARGS_append_armv7 = " --arm-float-abi ${TARGET_FPU}"
-GN_ARGS_append_armv7a = " --arm-float-abi ${TARGET_FPU}"
-GN_ARGS_append_armv7ve = " --arm-float-abi ${TARGET_FPU}"
+GN_ARGS:append:armv7 = " --arm-float-abi ${TARGET_FPU}"
+GN_ARGS:append:armv7a = " --arm-float-abi ${TARGET_FPU}"
+GN_ARGS:append:armv7ve = " --arm-float-abi ${TARGET_FPU}"
 
 ARGS_GN = ""
-ARGS_GN_append_aarch64 = "arm_tune = \"${@gn_get_tune_features(d)}\""
-ARGS_GN_append_armv7 = "arm_tune = \"${@gn_get_tune_features(d)}\""
-ARGS_GN_append_armv7a = "arm_tune = \"${@gn_get_tune_features(d)}\""
-ARGS_GN_append_armv7ve = "arm_tune = \"${@gn_get_tune_features(d)}\""
+ARGS_GN:append:aarch64 = "arm_tune = \"${@gn_get_tune_features(d)}\""
+ARGS_GN:append:armv7 = "arm_tune = \"${@gn_get_tune_features(d)}\""
+ARGS_GN:append:armv7a = "arm_tune = \"${@gn_get_tune_features(d)}\""
+ARGS_GN:append:armv7ve = "arm_tune = \"${@gn_get_tune_features(d)}\""
 
 do_configure() {
     cd ${S}
@@ -165,16 +165,16 @@ do_install[depends] += "zip-native:do_populate_sysroot"
 
 PACKAGES =+ "${PN}-sdk-dev"
 
-FILES_${PN} = "\
+FILES:${PN} = "\
     ${libdir} \
     ${datadir}/flutter/icudtl.dat \
     "
 
-FILES_${PN}-sdk-dev = "\
+FILES:${PN}-sdk-dev = "\
     ${datadir}/flutter/engine_sdk.zip \
     "
 
-FILES_${PN}-dev = "\
+FILES:${PN}-dev = "\
     ${includedir} \
     "
 

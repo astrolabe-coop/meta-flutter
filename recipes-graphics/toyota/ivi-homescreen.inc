@@ -56,7 +56,7 @@ FLUTTER_HOMESCREEN_SERVICE_EXEC_START  ??= "ExecStart=/usr/bin/homescreen --f ${
 FLUTTER_HOMESCREEN_SERVICE_SERVICE     ??= "${FLUTTER_HOMESCREEN_SERVICE_USER_GROUP}\n${FLUTTER_HOMESCREEN_SERVICE_RESTART}\n${FLUTTER_HOMESCREEN_SERVICE_ENVIRONMENT}\n${FLUTTER_HOMESCREEN_SERVICE_EXEC_START}\n"
 FLUTTER_HOMESCREEN_SERVICE_INSTALL     ??= "WantedBy=graphical.target\n"
 
-do_install_append() {
+do_install:append() {
     if ${@bb.utils.contains('PACKAGECONFIG', 'systemd', 'true', 'false', d)}; then
         install -m 644 ${WORKDIR}/homescreen.service.in ${WORKDIR}/homescreen.service
         sed -i "s|@ServiceUnit@|${FLUTTER_HOMESCREEN_SERVICE_UNIT}|g" ${WORKDIR}/homescreen.service
@@ -67,5 +67,5 @@ do_install_append() {
     fi
 }
 
-SYSTEMD_SERVICE_${PN} += "${@bb.utils.contains('PACKAGECONFIG', 'systemd', 'homescreen.service', '', d)}"
+SYSTEMD_SERVICE:${PN} += "${@bb.utils.contains('PACKAGECONFIG', 'systemd', 'homescreen.service', '', d)}"
 SYSTEMD_PACKAGES = "${@bb.utils.contains('PACKAGECONFIG', 'systemd', '${PN}', '', d)}"
