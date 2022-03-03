@@ -22,6 +22,7 @@ RDEPENDS:${PN}-native += "ca-certificates-native curl-native perl perl-modules u
 RDEPENDS:nativesdk-${PN} += "ca-certificates-native curl-native perl perl-modules unzip-native"
 
 SRC_URI = "git://github.com/flutter/flutter.git;protocol=https;nobranch=1"
+FLUTTER_SDK_TAG = "2.10.1"
 FLUTTER_SDK_TAG ??= "${AUTOREV}"
 SRCREV ??= "${FLUTTER_SDK_TAG}"
 
