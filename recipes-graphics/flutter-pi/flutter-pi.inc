@@ -16,6 +16,14 @@ DEPENDS += "\
     libcxx \
     libdrm \
     virtual/egl \
+    systemd \
+    libinput \
+    libxkbcommon \
+    wget \
+    curl-native \
+    ca-certificates-native \
+    curl \
+    ca-certificates \
    "
 
 RDEPENDS:${PN} += "\
@@ -37,7 +45,11 @@ RUNTIME = "llvm"
 TOOLCHAIN = "clang"
 PREFERRED_PROVIDER:libgcc = "compiler-rt"
 
-PACKAGECONFIG ??= "text_input raw_keyboard gstreamer"
+PACKAGECONFIG:remove = "gstreamer"
+
+PACKAGECONFIG ??= "text_input raw_keyboard \
+    ${@bb.utils.contains('LICENSE_FLAGS_ACCEPTED', 'commercial', 'gstreamer', '', d)} \
+"
 
 PACKAGECONFIG[text_input]   = "-DBUILD_TEXT_INPUT_PLUGIN=ON,             -DBUILD_TEXT_INPUT_PLUGIN=OFF, libinput libxkbcommon"
 PACKAGECONFIG[raw_keyboard] = "-DBUILD_RAW_KEYBOARD_PLUGIN=ON,           -DBUILD_RAW_KEYBOARD_PLUGIN=OFF, libinput libxkbcommon"
@@ -56,3 +68,25 @@ FILES_${PN} = "\
     "
 
 BBCLASSEXTEND = ""
+
+do_configure[network] = "1"
+
+do_configure:prepend() {
+    bbnote "Workaround cmake download failure"
+    export CURL_CA_BUNDLE=${STAGING_DIR_NATIVE}/etc/ssl/certs/ca-certificates.crt
+    CMAKE_BINARY_DIR=../build
+    mkdir -p $CMAKE_BINARY_DIR
+    bbnote "Flutter SDK: ${FLUTTER_SDK_TAG}"
+    CHANNEL=stable  # TODO
+    curl -o ${CMAKE_BINARY_DIR}/engine.version \
+        https://raw.githubusercontent.com/flutter/flutter/${CHANNEL}/bin/internal/engine.version 
+
+    FLUTTER_ENGINE_SHA=$(cat ${CMAKE_BINARY_DIR}/engine.version)
+    curl -O ../${CMAKE_BINARY_DIR}/flutter_embedder.h \
+        https://raw.githubusercontent.com/flutter/engine/${FLUTTER_ENGINE_SHA}/shell/platform/embedder/embedder.h
+}
+
+do_compile:prepend() {
+    export PUB_CACHE=${S}/.pub-cache # TODO 
+    cd ${S}/../git # TODO
+}
