@@ -8,6 +8,8 @@ LICENSE = "BSD-3-Clause"
 LIC_FILES_CHKSUM = "file://flutter/LICENSE;md5=a60894397335535eb10b54e2fff9f265"
 CVE_PRODUCT = "libflutter_engine.so"
 
+COMPATIBLE_HOST:libc-musl = 'null'
+
 REQUIRED_DISTRO_FEATURES = "opengl"
 
 DEPENDS += "\
