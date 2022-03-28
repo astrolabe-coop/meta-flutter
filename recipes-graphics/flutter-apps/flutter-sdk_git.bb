@@ -32,7 +32,7 @@ S = "${WORKDIR}/flutter"
 do_unpack[network] = "1"
 do_patch[network] = "1"
 do_compile[network] = "1"
-do_archive_pub_cache[network] = "1"
+# do_archive_pub_cache[network] = "1"
 
 common_compile() {
 
