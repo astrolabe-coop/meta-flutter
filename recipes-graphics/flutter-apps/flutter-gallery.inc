@@ -21,4 +21,4 @@ inherit flutter-app
 FILES:${PN} += "${datadir}/homescreen"
 
 do_compile[network] = "1"
-do_archive_pub_cache[network] = "1"
+# do_archive_pub_cache[network] = "1"
