@@ -19,11 +19,8 @@ DEPENDS += "\
     systemd \
     libinput \
     libxkbcommon \
-    wget \
     curl-native \
     ca-certificates-native \
-    curl \
-    ca-certificates \
    "
 
 RDEPENDS:${PN} += "\
