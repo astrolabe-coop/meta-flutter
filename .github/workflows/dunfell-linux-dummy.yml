@@ -74,7 +74,7 @@ jobs:
           echo 'VIRTUAL-RUNTIME_initscripts = ""' >> ./conf/local.conf
           echo 'INHIBIT_PACKAGE_DEBUG_SPLIT = "1"' >> ./conf/local.conf
           echo 'PREFERRED_PROVIDER_virtual/kernel = "linux-dummy"' >> ./conf/local.conf
-          echo 'IMAGE_INSTALL_append = " \
+          echo 'IMAGE_INSTALL:append = " \
               gstreamer1.0 \
               gstreamer1.0-libav \
               gstreamer1.0-plugins-bad \
