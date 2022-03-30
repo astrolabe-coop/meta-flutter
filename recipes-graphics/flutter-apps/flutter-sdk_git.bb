@@ -29,6 +29,10 @@ SRCREV ??= "${@get_flutter_hash(d)}"
 
 S = "${WORKDIR}/flutter"
 
+do_unpack[network] = "1"
+do_patch[network] = "1"
+do_compile[network] = "1"
+
 common_compile() {
 
     export CURL_CA_BUNDLE=${STAGING_DIR_NATIVE}/etc/ssl/certs/ca-certificates.crt
@@ -63,13 +67,11 @@ common_install() {
     rm -rf ${D}${datadir}/flutter/sdk/bin/cache/artifacts/*
 }
 
-do_install_class-native() {
+do_install:class-native() {
     common_install
 }
-
 do_install:class-nativesdk() {
-    install -d ${D}${datadir}/flutter/sdk
-    cp -rTv ${S}/. ${D}${datadir}/flutter/sdk
+    common_install
 }
 
 
@@ -80,4 +82,3 @@ FILES:${PN} = "${datadir}/flutter/sdk"
 INSANE_SKIP:${PN} += "already-stripped file-rdeps"
 
 BBCLASSEXTEND = "native nativesdk"
-
