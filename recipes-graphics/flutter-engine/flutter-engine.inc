@@ -21,7 +21,7 @@ SRC_URI = "gn://github.com/flutter/engine.git;name=src/flutter \
            file://0001-clang-toolchain.patch \
            file://0002-x64-sysroot-assert.patch"
            
-SRC_URI += "file://0003-disable-building-examples-by-default.patch \
+SRC_URI += "\
             file://0005-dart-enable-mallinfo2.patch \
             file://0006-dart-fix-lang-linkage.patch \
 "
