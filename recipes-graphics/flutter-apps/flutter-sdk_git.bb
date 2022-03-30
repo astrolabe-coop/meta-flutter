@@ -70,8 +70,10 @@ common_install() {
 do_install:class-native() {
     common_install
 }
+
 do_install:class-nativesdk() {
-    common_install
+    install -d ${D}${datadir}/flutter/sdk
+    cp -rTv ${S}/. ${D}${datadir}/flutter/sdk
 }
 
 
