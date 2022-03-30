@@ -20,10 +20,9 @@ DEPENDS += "\
 SRC_URI = "gn://github.com/flutter/engine.git;name=src/flutter \
            file://0001-clang-toolchain.patch \
            file://0002-x64-sysroot-assert.patch"
-           
+
 SRC_URI += "\
-            file://0005-dart-enable-mallinfo2.patch \
-            file://0006-dart-fix-lang-linkage.patch \
+            file://0005-dart-enable-mallinfo2.patch;patchdir=third_party/dart \
 "
 S = "${WORKDIR}/src"
 
